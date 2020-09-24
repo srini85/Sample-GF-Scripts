@@ -10,13 +10,19 @@
   </body>
 
   <script>
+    "use strict";
     $(document).ready(function() {
-      var eventId = 4; // set the event id
+      var count = 0;
+      var eventIds = [4, 5, 6]; // set the event ids
       var pageType = 's'; // set page type. s for individual, t for team
-      var url = 'https://api.gofundraise.com.au/v1/pages/search?eventcampaignid=' + eventId + '&pagesize=1&pageindex=1&pagetype=' + pageType
-      $.ajax({url: url}).done(function(data) {
-        $('.total').text(data.TotalPages)
-      })     
+
+      for (var i=0;i<eventIds.length;i++) {
+        var url = 'https://api.gofundraise.com.au/v1/pages/search?eventcampaignid=' + eventIds[i] + '&pagesize=1&pageindex=1&pagetype=' + pageType
+        $.ajax({url: url}).done(function(data) {
+          count += data.TotalPages;
+          $('.total').text(count)
+        }); 
+      }  
     })
   </script>
 </html>
